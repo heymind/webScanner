@@ -1488,6 +1488,10 @@ duplexer2@~0.1.4:
   dependencies:
     readable-stream "^2.0.2"
 
+easy-indexeddb@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/easy-indexeddb/-/easy-indexeddb-1.0.1.tgz#3fef1bf19dd93e5e2f4923d9b41de64cd61898a6"
+
 ecc-jsbn@~0.1.1:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/ecc-jsbn/-/ecc-jsbn-0.1.1.tgz#0fc73a9ed5f0d53c38193398523ef7e543777505"
@@ -4104,6 +4108,10 @@ type-check@~0.3.2:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typescript@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.7.2.tgz#2d615a1ef4aee4f574425cdff7026edf81919836"
 
 ua-parser-js@^0.7.9:
   version "0.7.17"
