@@ -1,7 +1,7 @@
 import * as React from 'react'
-
 import { extendObservable, action } from 'mobx'
 import { observer } from 'mobx-react'
+
 
 import { withStyles } from 'material-ui/styles'
 import Chip from 'material-ui/Chip'
@@ -235,16 +235,22 @@ const styles = theme => ({
     alignItems: "flex-start"
   }
 })
-const DocumentsPage = withStyles(styles)(observer(({ classes }) => <div className={classes.Root}>
+const DocumentsPage = withStyles(styles)(observer(({ classes }) =><div> <div className={classes.Root}>
   <GridList className={classes.GirdList}>
     {Object.keys(store.contentToShow).map(k =>
       [<TileHeader title={k} />].concat(store.contentToShow[k].map(props => <Tile {...props} />))
     )}
+
   </GridList>
   <TileMenu />
   <TileUpdateDialog />
   <AskTagNameDialog />
-</div>))
+
+</div>
+<Button variant="raised" color="primary" style={{margin:"1rem"}}onClick={action(()=>{store.groupBy = store.groupBy === 'time' ? 'tag' : 'time'})}>
+      切换分组
+    </Button>
+    </div>))
 
 export default DocumentsPage
 

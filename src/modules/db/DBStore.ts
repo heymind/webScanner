@@ -2,25 +2,25 @@ import 'easy-indexeddb'
 const dbReq = indexedDB.open('webScanner', 1)
 dbReq.onupgradeneeded = function () {
     const db = <IDBDatabase>this.result
-    db.createObjectStore('images', { autoIncrement: true })
+    db.createObjectStore('images', { keyPath:'id',autoIncrement: true })
     db.createObjectStore('documents')
 }
-export default abstract class DBStore<T> {
-    abstract storeName:string
+export default abstract class DBStore<T extends {id?:any}> {
+    public abstract storeName:string
     store = dbReq.then((db) => db.store(this.storeName, 'readwrite'))
-    _get(key):PromiseLike<T> {
-        return this.store.then((store) => store.get(key))
+    get(id):PromiseLike<T> {
+        return this.store.then((store) => store.get(id))
     }
-    async _put(value?: T, key?: any) {
+    async put(data:T) {
         const store = await this.store
-        if (!key) {
-            return store.add(value)
+        if (!data.id) {
+            return store.add(data)
         } else {
-            if (value) {
-                return store.put(value, key)
-            } else {
-                return store.delete(key)
-            }
+            return store.put(data)
         }
+    }
+
+    delete(id){
+        return this.store.then((store) => store.delete(id))
     }
 }

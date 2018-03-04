@@ -1,22 +1,33 @@
 import DBStore from './DBStore'
 export interface IImage {
     id?:number,
-    image: Blob,
-    url: string
+    image: Blob
 }
+
+export class ImageStore extends DBStore<IImage> {
+    storeName = 'images'
+}
+
 export class Image implements IImage {
-    id
-    constructor(public image: Blob) { }
+    public static store = new ImageStore()
+    private constructor(public id:number,public image:Blob){}
+    async replaceImage(imageData:Blob){
+        this.image = imageData
+        await Image.store.put(this)
+    }
+    async destory(id){
+        await Image.store.delete(id)
+    }
     get url() {
         return URL.createObjectURL(this.image)
     }
-}
-export class ImageStore extends DBStore<Blob> {
-    storeName = 'images'
-    get(key) {
-        return this._get(key).then(data => new Image(data))
+    static async get(id){
+        const data = await Image.store.get(id)
+        return new Image(data.id,data.image)
+
     }
-    async put(value?: Image, key?: any) {
-        return this._put(value ? value.image : null, key)
+    static async create(imageData:Blob){
+        const imageId = await Image.store.put({image:imageData})
+        return new Image(imageId,imageData)
     }
 }
